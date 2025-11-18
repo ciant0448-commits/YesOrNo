@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yes or No</title>
+<style>
+  body {
+    background-color: rgb(222, 181, 135);
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  img {
+    margin-top: 80px;
+  }
+
+  h1 {
+    font-size: 4.4em;
+    margin-bottom: 20px;
+  }
+
+  .yesBtn, .noBtn {
+    color: rgb(222, 181, 135);
+    height: 40px;
+    width: 70px;
+    border-radius: 18px;
+    font-weight: bold;
+    background-color: rgb(237, 24, 70);
+    border: none;
+    box-shadow: 3px 2px 6px rgba(237, 24, 70, 0.6);
+    cursor: pointer;
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+
+  .yesBtn { left: 38%; top: 73%; }
+  .noBtn { left: 55%; top: 73%; }
+  .yesBtn:hover, .noBtn:hover { opacity: 0.8; }
+
+  .heart {
+    position: absolute;
+    pointer-events: none;
+    animation: floatScatter 2s ease forwards;
+  }
+
+  @keyframes floatScatter {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+  <img src="cat-cats.gif" alt="Image">
+  <h1>Libre moko?</h1>
+
+  <button class="yesBtn">Yes</button>
+  <button class="noBtn">No</button>
+
+  <script>
+    const noBtn = document.querySelector(".noBtn");
+    const yesBtn = document.querySelector(".yesBtn");
+
+    // No button random movement
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+      const newX = Math.floor(Math.random() * maxX);
+      const newY = Math.floor(Math.random() * maxY);
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    });
+
+    // Yes button click -> scatter hearts
+    yesBtn.addEventListener("click", () => {
+      const rect = yesBtn.getBoundingClientRect();
+      const heartCount = 15; // more hearts
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "❤️";
+
+        const size = 40 + Math.random() * 30; // bigger: 40px - 70px
+        const offsetX = (Math.random() - 0.5) * 300; // random horizontal scatter
+        const offsetY = (Math.random() - 0.5) * 300; // random vertical scatter
+
+        heart.style.left = `${rect.left + rect.width/2}px`;
+        heart.style.top = `${rect.top}px`;
+        heart.style.fontSize = `${size}px`;
+
+        // Animate hearts using transform
+        heart.animate([
+          { transform: `translate(0px, 0px) scale(1)`, opacity: 1 },
+          { transform: `translate(${offsetX}px, ${offsetY}px) scale(1.2)`, opacity: 0 }
+        ], {
+          duration: 1500,
+          easing: 'ease-out'
+        });
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 1500);
+      }
+    });
+  </script>
+</body>
+</html>
