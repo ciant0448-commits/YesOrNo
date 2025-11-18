@@ -41,7 +41,7 @@
 
   .yesBtn { left: 38%; top: 73%; }
   .noBtn { left: 55%; top: 73%; }
-  .yesBtn:hover, .noBtn:hover { opacity: 0.8; }
+  .yesBtn:hover:hover { opacity: 0.8; }
 
   .heart {
     position: absolute;
@@ -52,6 +52,18 @@
   @keyframes floatScatter {
     0% { transform: translate(0, 0) scale(1); opacity: 1; }
     100% { opacity: 0; }
+  }
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 3em;
+    }
+    .yesBtn{
+      left: 35%;
+    }
+    .yesBtn, .noBtn {
+      width: 60px;
+      height: 35px;
+    }
   }
 </style>
 </head>
