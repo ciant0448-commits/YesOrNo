@@ -78,15 +78,22 @@
     const noBtn = document.querySelector(".noBtn");
     const yesBtn = document.querySelector(".yesBtn");
 
-    // No button random movement
-    noBtn.addEventListener("mouseover", () => {
+    function moveNoButton() {
       const maxX = window.innerWidth - noBtn.offsetWidth;
       const maxY = window.innerHeight - noBtn.offsetHeight;
+
       const newX = Math.floor(Math.random() * maxX);
       const newY = Math.floor(Math.random() * maxY);
+
       noBtn.style.left = `${newX}px`;
       noBtn.style.top = `${newY}px`;
-    });
+    }
+
+    // Move on hover
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    // Move on click
+    noBtn.addEventListener("click", moveNoButton);
 
     // Yes button click -> scatter hearts
     yesBtn.addEventListener("click", () => {
